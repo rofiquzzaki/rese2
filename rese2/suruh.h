@@ -11,22 +11,24 @@ extern char *pasb;
 class suruh
 {
 public:
+    char otput[256];
     suruh();
     //nginisialisasi uname secara default
 
     int ngakon(char *printah);
     //nginisialisasi perintah yang dimasukkan
 
-    int konek_ssh(char *alamat, int s_port);
+    int konek_ssh(char *alba, int porba);
     //mbuat sesi, koneksi
 
-    int minta(char *orang, char *pase);
+    int minta(char *jenba, char *pasba);
     //konek pake password
 
     int otentikasi();
     //otentikasi
 private:
     int rc;
+
     /*
     ssh_session sesi_ssh;
     char *alb;

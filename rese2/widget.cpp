@@ -1,5 +1,6 @@
 #include "widget.h"
 #include <QPushButton>
+#include <QLabel>
 #include <QApplication>
 #include <QDebug>
 
@@ -7,6 +8,8 @@ Widget::Widget(QWidget *parent) : QWidget(parent)
 {
     t_uname = new QPushButton("uname", this);
     t_uname->setGeometry(10, 10, 80, 30);
+    l_uname = new QLabel("idle", this);
+    l_uname->setGeometry(10, 100, 500, 30);
 
 
 
@@ -37,8 +40,17 @@ void Widget::dipencet(bool cek)
     {
         qDebug() << "waha" << alb << porb << jenb << pasb;
         qDebug() << &alb << &porb << &jenb << &pasb;
-    pr.ngakon(punm);
-}
+        pr.ngakon(punm);
+        /*
+        qDebug() << "qd" << pr.otput;
+
+        QString hasl = QString::fromUtf16((ushort*)(pr.otput));
+        qDebug() << "str" << hasl;
+        */
+        //metune apik
+
+        l_uname->setText(pr.otput);
+    }
 
     //fungsinya masi salah nih
 

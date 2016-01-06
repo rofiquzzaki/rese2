@@ -17,21 +17,21 @@ suruh::suruh()
 
 int suruh::ngakon(char *printah)
 {
-    //char buffer[256];
-    //int nbytes;
+    char buffer[256];
+    int nbytes;
 
     qDebug() << printah;
     qDebug() << alb << porb << jenb << pasb;
     qDebug() << &alb << &porb << &jenb << &pasb;
     //konek_ssh(alb, porb);
     //minta(jenb, pasb);
-    //ssh_channel channel;
+    ssh_channel channel;
     //channel bisa dibuat per perintah, karena channel tak terbatas
 
-    //channel = ssh_channel_new(sesi_ssh);
+    channel = ssh_channel_new(sesi_ssh);
     //pembuatan channel
 
-    //rc = ssh_channel_open_session(channel);
+    rc = ssh_channel_open_session(channel);
 
     /*
     if (rc != SSH_OK)
@@ -40,9 +40,10 @@ int suruh::ngakon(char *printah)
         return rc;
     }
     //nyambungke channel
-
+*/
     rc = ssh_channel_request_exec(channel, printah);
-    if (rc != SSH_OK)
+    /*
+if (rc != SSH_OK)
     {
         ssh_channel_close(channel);
         ssh_channel_free(channel);
@@ -51,8 +52,9 @@ int suruh::ngakon(char *printah)
     */
     //masukkan perintah
 
-    /*
+
     nbytes = ssh_channel_read(channel, buffer, sizeof(buffer), 0);
+    /*
     while (nbytes > 0)
     {
       if (fwrite(buffer, 1, nbytes, stdout) != nbytes)
@@ -70,43 +72,51 @@ int suruh::ngakon(char *printah)
       return SSH_ERROR;
     }
     */
+    strcpy(otput, buffer);
     //maca inputan, ceritane ngono
-    //qDebug() << buffer;
+    qDebug() << buffer;
 
     return rc;
 }
 
 
 
-int suruh::konek_ssh(char *alamat, int s_port)
+int suruh::konek_ssh(char *alba, int porba)
 {
+    int rc;
+    alb = alba;
+    porb = porba;
     int verbosity = SSH_LOG_PROTOCOL;
     sesi_ssh = ssh_new();
     if (sesi_ssh == NULL)
         exit(-1);
 
-    ssh_options_set(sesi_ssh, SSH_OPTIONS_HOST, alamat);
+    ssh_options_set(sesi_ssh, SSH_OPTIONS_HOST, alba);
     ssh_options_set(sesi_ssh, SSH_OPTIONS_LOG_VERBOSITY, &verbosity);
 
-    if (s_port == 0)
-        s_port = 22;
+    if (porba == 0)
+        porba = 22;
+        porb = 22;
     //port kalo kaga diisi jadi 22
 
-    ssh_options_set(sesi_ssh, SSH_OPTIONS_PORT, &s_port);
+    ssh_options_set(sesi_ssh, SSH_OPTIONS_PORT, &porba);
     //inisialisasi sesi
 
     rc = ssh_connect(sesi_ssh);
     //konek ke sesi
     qDebug() << "konek ssh" << alb << porb << jenb << pasb;
+    qDebug() << &alb << &porb << &jenb << &pasb;
 
     //alb = alamat;
 
     return rc;
 }
 
-int suruh::minta(char *orang, char *pase)
+int suruh::minta(char *jenba, char *pasba)
 {
-    rc = ssh_userauth_password(sesi_ssh, orang, pase);
+    jenb = jenba;
+    pasb = pasba;
+    rc = ssh_userauth_password(sesi_ssh, jenba, pasba);
     //otentikasi password
     if (rc != SSH_AUTH_SUCCESS)
     {
@@ -122,19 +132,21 @@ int suruh::minta(char *orang, char *pase)
     }
 
     qDebug() << "minta" << alb << porb << jenb << pasb;
+    qDebug() << &alb << &porb << &jenb << &pasb;
     return rc;
 }
 
 int suruh::otentikasi()
 {
-    pasuot *mintapas = new pasuot();
+    //pasuot *mintapas = new pasuot();
+    pasuot mintapas;
     //inisialisasi dialog untuk pasuot
-    if (mintapas->exec())
+    if (mintapas.exec())
     {
-        QString alamat = mintapas->alamat();
-        QString jeneng = mintapas->jeneng();
-        QString pase = mintapas->pase();
-        QString prot = mintapas->prot();
+        QString alamat = mintapas.alamat();
+        QString jeneng = mintapas.jeneng();
+        QString pase = mintapas.pase();
+        QString prot = mintapas.prot();
         //String dari QLineEdit
         qDebug() << alamat;
 
@@ -143,10 +155,10 @@ int suruh::otentikasi()
         QByteArray pasba = pase.toUtf8();
         //String diubah ke QByteArray
 
-        char *albx = alba.data();
-        char *jenbx = jenba.data();
-        char *pasbx = pasba.data();
-        int porbx = prot.toInt();
+        char *alb = alba.data();
+        char *jenb = jenba.data();
+        char *pasb = pasba.data();
+        int porb = prot.toInt();
         //QByteArray diubah ke char
         qDebug() << alb;
 
@@ -154,23 +166,21 @@ int suruh::otentikasi()
         QPushButton *tombol = pesen.addButton(("uwis"), QMessageBox::ActionRole);
         //pesan koneksi
 
-        rc = konek_ssh(albx, porbx);
+        rc = konek_ssh(alb, porb);
+        qDebug() << "barkonek" << alb << porb << jenb << pasb;
         if (rc != SSH_OK)
         {
             rc = 7;
         }
         else {
-            minta(jenbx, pasbx);
+            minta(jenb, pasb);
+            qDebug() << "barminta" << alb << porb << jenb << pasb;
 
 
             qDebug() << alamat;
             qDebug() << alb;
             qDebug() << "otentikasi" << alb << porb << jenb << pasb;
             qDebug() << "otentikasi" << &alb << &porb << &jenb << &pasb;
-            alb = albx;
-            jenb = jenbx;
-            pasb = pasbx;
-            porb = porbx;
 
         }
 

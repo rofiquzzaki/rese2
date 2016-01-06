@@ -13,6 +13,7 @@ extern char *pasb;
 */
 
 class QPushButton;
+class QLabel;
 class Widget : public QWidget
 {
     Q_OBJECT
@@ -28,6 +29,7 @@ signals:
 
 private:
     QPushButton *t_uname;
+    QLabel *l_uname;
     int m_penghitung;
 
 };
