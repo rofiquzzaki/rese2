@@ -2,8 +2,13 @@
 #define PASUOT_H
 
 #include <QDialog>
+#include <QLineEdit>
+#include <QPushButton>
+#include <QDialogButtonBox>
+#include <QVBoxLayout>
+#include <QGroupBox>
+#include <QLabel>
 
-class QLineEdit;
 class pasuot : public QDialog
 {
     Q_OBJECT
@@ -15,10 +20,16 @@ public:
     QString prot() const;
 
 private:
+    QLabel *addre;
+    QLabel *usre;
+    QLabel *passe;
+    QLabel *porte;
     QLineEdit *almt;
     QLineEdit *nama;
     QLineEdit *kunci;
     QLineEdit *poret;
+    //QGroupBox *utama;
+    //QGroupBox *kanan;
 
 signals:
 

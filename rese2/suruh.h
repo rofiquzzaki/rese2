@@ -15,7 +15,7 @@ public:
     suruh();
     //nginisialisasi uname secara default
 
-    int ngakon(char *printah);
+    int ngakon(const char *printah);
     //nginisialisasi perintah yang dimasukkan
 
     int konek_ssh(char *alba, int porba);
@@ -26,16 +26,11 @@ public:
 
     int otentikasi();
     //otentikasi
+
+    void diskonek();
+    //diskonek sesi
 private:
     int rc;
-
-    /*
-    ssh_session sesi_ssh;
-    char *alb;
-    int porb;
-    char *jenb;
-    char *pasb;
-    */
 
 };
 

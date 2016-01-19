@@ -15,16 +15,22 @@ suruh::suruh()
 
 }
 
-int suruh::ngakon(char *printah)
+int suruh::ngakon(const char *printah)
 {
-    char buffer[256];
-    int nbytes;
+    char buffer[256] = {0};
+    //int nbytes;
 
     qDebug() << printah;
     qDebug() << alb << porb << jenb << pasb;
     qDebug() << &alb << &porb << &jenb << &pasb;
-    //konek_ssh(alb, porb);
-    //minta(jenb, pasb);
+
+    if (sesi_ssh == NULL)
+    {
+        otentikasi();
+        return rc;
+    }
+    else
+    {
     ssh_channel channel;
     //channel bisa dibuat per perintah, karena channel tak terbatas
 
@@ -32,28 +38,12 @@ int suruh::ngakon(char *printah)
     //pembuatan channel
 
     rc = ssh_channel_open_session(channel);
-
-    /*
-    if (rc != SSH_OK)
-    {
-        ssh_channel_free(channel);
-        return rc;
-    }
     //nyambungke channel
-*/
+
     rc = ssh_channel_request_exec(channel, printah);
-    /*
-if (rc != SSH_OK)
-    {
-        ssh_channel_close(channel);
-        ssh_channel_free(channel);
-        return rc;
-    }
-    */
     //masukkan perintah
-
-
-    nbytes = ssh_channel_read(channel, buffer, sizeof(buffer), 0);
+    //nbytes =
+    ssh_channel_read(channel, buffer, sizeof(buffer), 0);
     /*
     while (nbytes > 0)
     {
@@ -72,11 +62,17 @@ if (rc != SSH_OK)
       return SSH_ERROR;
     }
     */
+
     strcpy(otput, buffer);
     //maca inputan, ceritane ngono
     qDebug() << buffer;
 
+    ssh_channel_send_eof(channel);
+    ssh_channel_close(channel);
+    ssh_channel_free(channel);
+    //channel ditutup
     return rc;
+    }
 }
 
 
@@ -107,8 +103,6 @@ int suruh::konek_ssh(char *alba, int porba)
     qDebug() << "konek ssh" << alb << porb << jenb << pasb;
     qDebug() << &alb << &porb << &jenb << &pasb;
 
-    //alb = alamat;
-
     return rc;
 }
 
@@ -138,7 +132,6 @@ int suruh::minta(char *jenba, char *pasba)
 
 int suruh::otentikasi()
 {
-    //pasuot *mintapas = new pasuot();
     pasuot mintapas;
     //inisialisasi dialog untuk pasuot
     if (mintapas.exec())
@@ -217,4 +210,11 @@ int suruh::otentikasi()
 
     return 0;
 
+}
+
+void suruh::diskonek()
+{
+    ssh_disconnect(sesi_ssh);
+    ssh_free(sesi_ssh);
+    sesi_ssh = NULL;
 }

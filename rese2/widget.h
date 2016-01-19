@@ -2,15 +2,13 @@
 #define WIDGET_H
 
 #include <QWidget>
+#include <QVBoxLayout>
+#include <QGroupBox>
+#include <QPushButton>
+#include <QLabel>
+#include <QLineEdit>
+#include <QApplication>
 #include "suruh.h"
-
-/*
-extern ssh_session sesi_ssh;
-extern char *alb;
-extern int porb;
-extern char *jenb;
-extern char *pasb;
-*/
 
 class QPushButton;
 class QLabel;
@@ -22,16 +20,32 @@ public:
     explicit Widget(QWidget *parent = 0);
 
 private slots:
-    void dipencet(bool cek);
+    void dipencet();
+    void cekWs();
+    void wsOn();
+    void wsOff();
+    void wsR();
+    void dc();
+    void kon();
+    void rst();
+    void kstm();
 
 signals:
-    void hitunganKe();
 
 private:
     QPushButton *t_uname;
+    QPushButton *t_ws;
+    QPushButton *t_wsOn;
+    QPushButton *t_wsOff;
+    QPushButton *t_wsr;
+    QPushButton *t_dc;
+    QPushButton *t_kon;
+    QPushButton *t_metu;
+    QPushButton *t_rst;
+    QLineEdit *kastem;
+    QPushButton *eksek;
+    QString kstom() const;
     QLabel *l_uname;
-    int m_penghitung;
-
 };
 
 #endif // WIDGET_H

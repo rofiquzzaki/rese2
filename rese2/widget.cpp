@@ -1,74 +1,155 @@
 #include "widget.h"
-#include <QPushButton>
-#include <QLabel>
-#include <QApplication>
+
 #include <QDebug>
 
 Widget::Widget(QWidget *parent) : QWidget(parent)
 {
     t_uname = new QPushButton("uname", this);
-    t_uname->setGeometry(10, 10, 80, 30);
     l_uname = new QLabel("idle", this);
-    l_uname->setGeometry(10, 100, 500, 30);
+    t_ws = new QPushButton("cek WS", this);
+    t_wsOn = new QPushButton("WS On", this);
+    t_wsOff = new QPushButton("WS Off", this);
+    t_wsr = new QPushButton("WS Restart", this);
 
+    t_dc = new QPushButton("Disconnect", this);
+    t_kon = new QPushButton("Konek", this);
+    t_rst = new QPushButton("Restart", this);
 
+    t_metu = new QPushButton("Keluar", this);
 
-    connect(t_uname, SIGNAL(clicked(bool)), this, SLOT(dipencet(bool)));
+    kastem = new QLineEdit(this);
+    eksek = new QPushButton("Eksekusi", this);
 
-    //iseng
-    //m_penghitung = 0;
-    //connect(this, SIGNAL (hitunganKe()), QApplication::instance(), SLOT (quit()));
+    connect(t_uname, SIGNAL(clicked()), this, SLOT(dipencet()));
+    connect(t_ws, SIGNAL(clicked()), this, SLOT(cekWs()));
+    connect(t_wsOn, SIGNAL(clicked()), this, SLOT(wsOn()));
+    connect(t_wsOff, SIGNAL(clicked()), this, SLOT(wsOff()));
+    connect(t_wsr, SIGNAL(clicked()), this, SLOT(wsR()));
+    connect(t_dc, SIGNAL(clicked()), this, SLOT(dc()));
+    connect(t_kon, SIGNAL(clicked()), this, SLOT(kon()));
+    connect(t_rst, SIGNAL(clicked()), this, SLOT(rst()));
+    connect(t_metu, SIGNAL(clicked()), this, SLOT(close()));
+    connect(eksek, SIGNAL(clicked()), this, SLOT(kstm()));
+
+    QVBoxLayout *mein = new QVBoxLayout;
+
+    QGroupBox *boks = new QGroupBox;
+    QGridLayout *leot = new QGridLayout;
+    leot->addWidget(t_uname, 0, 0);
+    leot->addWidget(t_ws, 0, 1);
+    leot->addWidget(t_wsOn, 0, 2);
+    leot->addWidget(t_wsOff, 0, 3);
+    leot->addWidget(t_wsr, 0, 4);
+    leot->addWidget(t_dc, 1, 0);
+    leot->addWidget(t_kon, 1, 1);
+    leot->addWidget(t_rst, 1, 2);
+    leot->addWidget(t_metu, 1, 4);
+    leot->addWidget(kastem, 2, 0, 1, 4);
+    leot->addWidget(eksek, 2, 4);
+    boks->setLayout(leot);
+
+    QGroupBox *boksa = new QGroupBox;
+    QGridLayout *stata = new QGridLayout;
+    stata->addWidget(l_uname);
+    boksa->setLayout(stata);
+
+    mein->addWidget(boks);
+    mein->addWidget(boksa);
+    setLayout(mein);
 }
 
-void Widget::dipencet(bool cek)
+void Widget::dipencet()
 {
 
     suruh pr;
 
-    //QString unem = "uname -a";
-    //String dari QLineEdit
+    const char *punm = "uname -a";
 
-    //QByteArray unm = unem.toUtf8();
-    //String diubah ke QByteArray
+    qDebug() << "waha" << alb << porb << jenb << pasb;
+    qDebug() << &alb << &porb << &jenb << &pasb;
 
-    //char *punm = unm.data();
-    char *punm = "uname -a";
-    //QByteArray diubah ke char
-
-    //qDebug() << punm;
-    if (pr.otentikasi() == 0)
-    {
-        qDebug() << "waha" << alb << porb << jenb << pasb;
-        qDebug() << &alb << &porb << &jenb << &pasb;
-        pr.ngakon(punm);
-        /*
+    pr.ngakon(punm);
+    /*
         qDebug() << "qd" << pr.otput;
 
         QString hasl = QString::fromUtf16((ushort*)(pr.otput));
         qDebug() << "str" << hasl;
         */
-        //metune apik
+    //metune apik
 
-        l_uname->setText(pr.otput);
-    }
+    l_uname->setText(pr.otput);
 
-    //fungsinya masi salah nih
+}
 
-    //if (pr.ngakon() == )
-    //asli
-    //t_uname->setText("sapi");
+void Widget::cekWs()
+{
+    suruh pr;
+    const char *pws = "ps aux | grep 'apache\\|httpd\\|nginx'";
+    pr.ngakon(pws);
+    l_uname->setText(pr.otput);
+}
 
-    //iseng
-    /*
-        if (cek) {
-            t_uname->setText("dicentang");
-        } else {
-            t_uname->setText("Hello Hell");
-        }
+void Widget::wsOn()
+{
+    suruh pr;
+    const char *pwsn = "service httpd start";
+    pr.ngakon(pwsn);
+    l_uname->setText(pr.otput);
+}
 
-        m_penghitung ++;
-        if (m_penghitung == 10) {
-            emit hitunganKe();
-        }
-        */
+void Widget::wsOff()
+{
+    suruh pr;
+    const char *pwsf = "service httpd stop";
+    pr.ngakon(pwsf);
+    l_uname->setText(pr.otput);
+}
+
+void Widget::wsR()
+{
+    suruh pr;
+    const char *pwsr = "service httpd restart";
+    pr.ngakon(pwsr);
+    l_uname->setText(pr.otput);
+}
+
+void Widget::dc()
+{
+    suruh pr;
+    pr.diskonek();
+    l_uname->setText("Diskonek");
+}
+
+void Widget::kon()
+{
+    suruh pr;
+    pr.diskonek();
+    pr.otentikasi();
+    const char *punm = "uname -a";
+    pr.ngakon(punm);
+    l_uname->setText(pr.otput);
+}
+
+void Widget::rst()
+{
+    suruh pr;
+    const char *rstr = "reboot";
+    pr.ngakon(rstr);
+    pr.diskonek();
+}
+
+QString Widget::kstom() const
+{
+    return kastem->text();
+}
+
+void Widget::kstm()
+{
+    suruh pr;
+    //QString kast = this->kstom();
+    QString kast = kastem->text();
+    QByteArray kss = kast.toUtf8();
+    const char *kstt = kss.data();
+    pr.ngakon(kstt);
+    l_uname->setText(pr.otput);
 }
