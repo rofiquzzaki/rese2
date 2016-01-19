@@ -28,6 +28,7 @@ Widget::Widget(QWidget *parent) : QWidget(parent)
     connect(t_dc, SIGNAL(clicked()), this, SLOT(dc()));
     connect(t_kon, SIGNAL(clicked()), this, SLOT(kon()));
     connect(t_rst, SIGNAL(clicked()), this, SLOT(rst()));
+    connect(t_metu, SIGNAL(clicked()), this, SLOT(dc()));
     connect(t_metu, SIGNAL(clicked()), this, SLOT(close()));
     connect(eksek, SIGNAL(clicked()), this, SLOT(kstm()));
 
