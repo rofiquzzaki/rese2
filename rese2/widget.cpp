@@ -10,9 +10,13 @@ Widget::Widget(QWidget *parent) : QWidget(parent)
     t_wsOn = new QPushButton("WS On", this);
     t_wsOff = new QPushButton("WS Off", this);
     t_wsr = new QPushButton("WS Restart", this);
+    t_nOn = new QPushButton("nginx On", this);
+    t_nOff= new QPushButton("nginx Off", this);
+    t_nR = new QPushButton("Restart Ng", this);
+    t_mati = new QPushButton("Shutdown", this);
 
     t_dc = new QPushButton("Disconnect", this);
-    t_kon = new QPushButton("Konek", this);
+    //t_kon = new QPushButton("Konek", this);
     t_rst = new QPushButton("Restart", this);
 
     t_metu = new QPushButton("Keluar", this);
@@ -26,7 +30,7 @@ Widget::Widget(QWidget *parent) : QWidget(parent)
     connect(t_wsOff, SIGNAL(clicked()), this, SLOT(wsOff()));
     connect(t_wsr, SIGNAL(clicked()), this, SLOT(wsR()));
     connect(t_dc, SIGNAL(clicked()), this, SLOT(dc()));
-    connect(t_kon, SIGNAL(clicked()), this, SLOT(kon()));
+    //connect(t_kon, SIGNAL(clicked()), this, SLOT(kon()));
     connect(t_rst, SIGNAL(clicked()), this, SLOT(rst()));
     connect(t_metu, SIGNAL(clicked()), this, SLOT(dc()));
     connect(t_metu, SIGNAL(clicked()), this, SLOT(close()));
@@ -41,12 +45,15 @@ Widget::Widget(QWidget *parent) : QWidget(parent)
     leot->addWidget(t_wsOn, 0, 2);
     leot->addWidget(t_wsOff, 0, 3);
     leot->addWidget(t_wsr, 0, 4);
-    leot->addWidget(t_dc, 1, 0);
-    leot->addWidget(t_kon, 1, 1);
-    leot->addWidget(t_rst, 1, 2);
-    leot->addWidget(t_metu, 1, 4);
-    leot->addWidget(kastem, 2, 0, 1, 4);
-    leot->addWidget(eksek, 2, 4);
+    leot->addWidget(t_nOn, 1, 2);
+    leot->addWidget(t_nOff, 1, 3);
+    leot->addWidget(t_nR, 1, 4);
+    leot->addWidget(t_dc, 2, 1);
+    leot->addWidget(t_rst, 2, 2);
+    leot->addWidget(t_mati, 2, 3);
+    leot->addWidget(t_metu, 2, 4);
+    leot->addWidget(kastem, 3, 0, 1, 4);
+    leot->addWidget(eksek, 3, 4);
     boks->setLayout(leot);
 
     QGroupBox *boksa = new QGroupBox;

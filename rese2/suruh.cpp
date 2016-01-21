@@ -156,7 +156,7 @@ int suruh::otentikasi()
         qDebug() << alb;
 
         QMessageBox pesen;
-        QPushButton *tombol = pesen.addButton(("uwis"), QMessageBox::ActionRole);
+        QPushButton *tombol = pesen.addButton(("keluar"), QMessageBox::ActionRole);
         //pesan koneksi
 
         rc = konek_ssh(alb, porb);
@@ -179,7 +179,7 @@ int suruh::otentikasi()
 
         switch (rc) {
         case 9:
-            pesen.setText("Salah password atau user, mbuh");
+            pesen.setText("Salah password atau user");
             pesen.exec();
             break;
         case 8:
@@ -188,7 +188,7 @@ int suruh::otentikasi()
             //pesen.exec();
             break;
         case 7:
-            pesen.setText("Kaga bisa konek lu");
+            pesen.setText("Server tidak terjangkau");
             pesen.exec();
             break;
         default:

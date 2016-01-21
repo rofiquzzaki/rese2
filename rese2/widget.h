@@ -42,6 +42,10 @@ private:
     QPushButton *t_kon;
     QPushButton *t_metu;
     QPushButton *t_rst;
+    QPushButton *t_nOn;
+    QPushButton *t_nOff;
+    QPushButton *t_nR;
+    QPushButton *t_mati;
     QLineEdit *kastem;
     QPushButton *eksek;
     QString kstom() const;
