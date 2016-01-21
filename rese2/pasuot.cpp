@@ -29,6 +29,7 @@ pasuot::pasuot(QWidget *parent) : QDialog(parent)
     almt->setFixedWidth(128);
     nama->setFixedWidth(128);
     kunci->setFixedWidth(128);
+    kunci->setEchoMode(QLineEdit::Password);
     poret->setFixedWidth(128);
     addre->setFixedWidth(128);
     usre->setFixedWidth(128);
