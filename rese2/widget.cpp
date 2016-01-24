@@ -29,6 +29,9 @@ Widget::Widget(QWidget *parent) : QWidget(parent)
     connect(t_wsOn, SIGNAL(clicked()), this, SLOT(wsOn()));
     connect(t_wsOff, SIGNAL(clicked()), this, SLOT(wsOff()));
     connect(t_wsr, SIGNAL(clicked()), this, SLOT(wsR()));
+    connect(t_nOn, SIGNAL(clicked()), this, SLOT(nginxOn()));
+    connect(t_nOff, SIGNAL(clicked()), this, SLOT(nginxOff()));
+    connect(t_nR, SIGNAL(clicked()), this, SLOT(nginxR()));
     connect(t_dc, SIGNAL(clicked()), this, SLOT(dc()));
     //connect(t_kon, SIGNAL(clicked()), this, SLOT(kon()));
     connect(t_rst, SIGNAL(clicked()), this, SLOT(rst()));
@@ -118,6 +121,30 @@ void Widget::wsR()
     suruh pr;
     const char *pwsr = "service httpd restart";
     pr.ngakon(pwsr);
+    l_uname->setText(pr.otput);
+}
+
+void Widget::nginxOn()
+{
+    suruh pr;
+    const char *non = "service nginx start";
+    pr.ngakon(non);
+    l_uname->setText(pr.otput);
+}
+
+void Widget::nginxOff()
+{
+    suruh pr;
+    const char *noff = "service nginx stop";
+    pr.ngakon(noff);
+    l_uname->setText(pr.otput);
+}
+
+void Widget::nginxR()
+{
+    suruh pr;
+    const char *nr = "service nginx restart";
+    pr.ngakon(nr);
     l_uname->setText(pr.otput);
 }
 

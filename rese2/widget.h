@@ -25,6 +25,9 @@ private slots:
     void wsOn();
     void wsOff();
     void wsR();
+    void nginxOn();
+    void nginxOff();
+    void nginxR();
     void dc();
     void kon();
     void rst();
