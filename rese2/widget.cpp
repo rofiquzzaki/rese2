@@ -29,6 +29,8 @@ Widget::Widget(QWidget *parent) : QWidget(parent)
     connect(t_wsOn, SIGNAL(clicked()), this, SLOT(wsOn()));
     connect(t_wsOff, SIGNAL(clicked()), this, SLOT(wsOff()));
     connect(t_wsr, SIGNAL(clicked()), this, SLOT(wsR()));
+    //connect(t_wsr, SIGNAL(clicked()), this, SLOT(wsOff()));
+    //connect(t_wsr, SIGNAL(clicked()), this, SLOT(wsOn()));
     connect(t_nOn, SIGNAL(clicked()), this, SLOT(nginxOn()));
     connect(t_nOff, SIGNAL(clicked()), this, SLOT(nginxOff()));
     connect(t_nR, SIGNAL(clicked()), this, SLOT(nginxR()));

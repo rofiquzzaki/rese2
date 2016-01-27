@@ -18,7 +18,7 @@ suruh::suruh()
 int suruh::ngakon(const char *printah)
 {
     char buffer[256] = {0};
-    //int nbytes;
+    int nbytes;
 
     qDebug() << printah;
     qDebug() << alb << porb << jenb << pasb;
@@ -44,24 +44,26 @@ int suruh::ngakon(const char *printah)
     //masukkan perintah
     //nbytes =
     ssh_channel_read(channel, buffer, sizeof(buffer), 0);
-    /*
+
     while (nbytes > 0)
     {
+        /*
       if (fwrite(buffer, 1, nbytes, stdout) != nbytes)
       {
         ssh_channel_close(channel);
         ssh_channel_free(channel);
         return SSH_ERROR;
       }
+      */
       nbytes = ssh_channel_read(channel, buffer, sizeof(buffer), 0);
     }
     if (nbytes < 0)
     {
       ssh_channel_close(channel);
       ssh_channel_free(channel);
-      return SSH_ERROR;
+      //return SSH_ERROR;
     }
-    */
+
 
     strcpy(otput, buffer);
     //maca inputan, ceritane ngono
