@@ -23,11 +23,8 @@ private slots:
     void dipencet();
     void cekWs();
     void wsOn(bool cek);
-    void wsOff();
-    void wsR();
     void nginxOn(bool cek);
-    void nginxOff();
-    void nginxR();
+    void mysqlOn(bool cek);
     void dc();
     void kon();
     void rst();
@@ -39,15 +36,11 @@ private:
     QPushButton *t_uname;
     QPushButton *t_ws;
     QPushButton *t_wsOn;
-    QPushButton *t_wsOff;
-    QPushButton *t_wsr;
     QPushButton *t_dc;
     QPushButton *t_kon;
     QPushButton *t_metu;
     QPushButton *t_rst;
     QPushButton *t_nOn;
-    QPushButton *t_nOff;
-    QPushButton *t_nR;
     QPushButton *t_mati;
     QPushButton *t_mysql;
     QLineEdit *kastem;

@@ -4,18 +4,11 @@
 
 Widget::Widget(QWidget *parent) : QWidget(parent)
 {
-    //t_uname = new QPushButton("uname", this);
     l_uname = new QLabel("idle", this);
-
-    //t_ws = new QPushButton("cek WS", this);
     t_wsOn = new QPushButton("WS On", this);
     t_wsOn->setCheckable(true);
-    //t_wsOff = new QPushButton("WS Off", this);
-    //t_wsr = new QPushButton("WS Restart", this);
     t_nOn = new QPushButton("nginx On", this);
     t_nOn->setCheckable(true);
-    //t_nOff= new QPushButton("nginx Off", this);
-    //t_nR = new QPushButton("Restart Ng", this);
     t_mysql = new QPushButton("MySQL", this);
     t_mysql->setCheckable(true);
 
@@ -33,7 +26,6 @@ Widget::Widget(QWidget *parent) : QWidget(parent)
     l_server = new QLabel("Server");
 
     t_dc = new QPushButton("Disconnect", this);
-    //t_kon = new QPushButton("Konek", this);
     t_rst = new QPushButton("Restart", this);
 
     t_metu = new QPushButton("Keluar", this);
@@ -41,20 +33,9 @@ Widget::Widget(QWidget *parent) : QWidget(parent)
     kastem = new QLineEdit(this);
     eksek = new QPushButton("Eksekusi", this);
 
-    //connect(t_uname, SIGNAL(clicked()), this, SLOT(dipencet()));
-
-    //connect(t_ws, SIGNAL(clicked()), this, SLOT(cekWs()));
     connect(t_wsOn, SIGNAL(clicked(bool)), this, SLOT(wsOn(bool)));
-    //connect(t_wsOff, SIGNAL(clicked()), this, SLOT(wsOff()));
-    //connect(t_wsr, SIGNAL(clicked()), this, SLOT(wsR()));
-    //connect(t_wsr, SIGNAL(clicked()), this, SLOT(wsOff()));
-    //connect(t_wsr, SIGNAL(clicked()), this, SLOT(wsOn()));
     connect(t_nOn, SIGNAL(clicked(bool)), this, SLOT(nginxOn(bool)));
-    //connect(t_nOff, SIGNAL(clicked()), this, SLOT(nginxOff()));
-    //connect(t_nR, SIGNAL(clicked()), this, SLOT(nginxR()));
     connect(t_dc, SIGNAL(clicked()), this, SLOT(dc()));
-    
-    //connect(t_kon, SIGNAL(clicked()), this, SLOT(kon()));
     connect(t_rst, SIGNAL(clicked()), this, SLOT(rst()));
     connect(t_metu, SIGNAL(clicked()), this, SLOT(dc()));
     connect(t_metu, SIGNAL(clicked()), this, SLOT(close()));
@@ -66,19 +47,13 @@ Widget::Widget(QWidget *parent) : QWidget(parent)
 
     QGroupBox *boks = new QGroupBox;
     QGridLayout *leot = new QGridLayout;
-    //leot->addWidget(t_uname, 0, 0);
     leot->addWidget(l_uname, 0, 0);
     leot->addWidget(l_apache, 1, 0);
-    //leot->addWidget(t_ws, 0, 1);
     leot->addWidget(s_apache, 1, 1);
     leot->addWidget(t_wsOn, 1, 2);
-    //leot->addWidget(t_wsOff, 0, 3);
-    //leot->addWidget(t_wsr, 0, 4);
     leot->addWidget(l_nginx, 2, 0);
     leot->addWidget(s_nginx, 2, 1);
     leot->addWidget(t_nOn, 2, 2);
-    //leot->addWidget(t_nOff, 1, 3);
-    //leot->addWidget(t_nR, 1, 4);
     leot->addWidget(l_mysql, 3, 0);
     leot->addWidget(s_mysql, 3, 1);
     leot->addWidget(t_mysql, 3, 2);
@@ -93,7 +68,6 @@ Widget::Widget(QWidget *parent) : QWidget(parent)
 
     QGroupBox *boksa = new QGroupBox;
     QGridLayout *stata = new QGridLayout;
-    //stata->addWidget(l_uname);
     boksa->setLayout(stata);
 
     mein->addWidget(boks);
@@ -105,21 +79,8 @@ void Widget::dipencet()
 {
 
     suruh pr;
-
     const char *punm = "uname -a";
-
-    qDebug() << "waha" << alb << porb << jenb << pasb;
-    qDebug() << &alb << &porb << &jenb << &pasb;
-
     pr.ngakon(punm);
-    /*
-        qDebug() << "qd" << pr.otput;
-
-        QString hasl = QString::fromUtf16((ushort*)(pr.otput));
-        qDebug() << "str" << hasl;
-        */
-    //metune apik
-
     l_uname->setText(pr.otput);
 
 }
@@ -156,22 +117,6 @@ void Widget::wsOn(bool cek)
     }
 }
 
-void Widget::wsOff()
-{
-    suruh pr;
-    const char *pwsf = "service httpd stop";
-    pr.ngakon(pwsf);
-    l_uname->setText(pr.otput);
-}
-
-void Widget::wsR()
-{
-    suruh pr;
-    const char *pwsr = "service httpd restart";
-    pr.ngakon(pwsr);
-    l_uname->setText(pr.otput);
-}
-
 void Widget::nginxOn(bool cek)
 {
     if (cek)
@@ -196,20 +141,28 @@ void Widget::nginxOn(bool cek)
     }
 }
 
-void Widget::nginxOff()
+void Widget::mysqlOn(bool cek)
 {
-    suruh pr;
-    const char *noff = "service nginx stop";
-    pr.ngakon(noff);
-    l_uname->setText(pr.otput);
-}
-
-void Widget::nginxR()
-{
-    suruh pr;
-    const char *nr = "service nginx restart";
-    pr.ngakon(nr);
-    l_uname->setText(pr.otput);
+    if (cek)
+    {
+        t_mysql->setText("On");
+        suruh pr;
+        const char *psql = "service mysqld start";
+        const char *psal = "systemctl start mysqld";
+        pr.ngakon(psql);
+        pr.ngakon(psal);
+        l_uname->setText(pr.otput);
+    }
+    else
+    {
+        t_mysql->setText("Off");
+        suruh px;
+        const char *psss = "service mysqld stop";
+        const char *psas = "systemctl stop mysqld";
+        px.ngakon(psss);
+        px.ngakon(psas);
+        l_uname->setText(px.otput);
+    }
 }
 
 void Widget::dc()
