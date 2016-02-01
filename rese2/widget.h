@@ -22,10 +22,10 @@ public:
 private slots:
     void dipencet();
     void cekWs();
-    void wsOn();
+    void wsOn(bool cek);
     void wsOff();
     void wsR();
-    void nginxOn();
+    void nginxOn(bool cek);
     void nginxOff();
     void nginxR();
     void dc();
@@ -49,10 +49,18 @@ private:
     QPushButton *t_nOff;
     QPushButton *t_nR;
     QPushButton *t_mati;
+    QPushButton *t_mysql;
     QLineEdit *kastem;
     QPushButton *eksek;
     QString kstom() const;
     QLabel *l_uname;
+    QLabel *l_apache;
+    QLabel *l_nginx;
+    QLabel *l_mysql;
+    QLabel *l_server;
+    QLabel *s_apache;
+    QLabel *s_nginx;
+    QLabel *s_mysql;
 };
 
 #endif // WIDGET_H
