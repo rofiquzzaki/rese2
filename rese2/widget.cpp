@@ -21,6 +21,10 @@ Widget::Widget(QWidget *parent) : QWidget(parent)
 
     s_apache = new QLabel("berhenti");
     s_apache->setStyleSheet("QLabel { background-color : red; color : blue; }");
+    s_nginx = new QLabel("berhenti");
+    s_nginx->setStyleSheet("QLabel { background-color : red; color : blue; }");
+    s_mysql = new QLabel("berhenti");
+    s_mysql->setStyleSheet("QLabel { background-color : red; color : blue; }");
     
     t_mati = new QPushButton("Shutdown", this);
     l_apache = new QLabel("Apache");
@@ -71,10 +75,12 @@ Widget::Widget(QWidget *parent) : QWidget(parent)
     //leot->addWidget(t_wsOff, 0, 3);
     //leot->addWidget(t_wsr, 0, 4);
     leot->addWidget(l_nginx, 2, 0);
+    leot->addWidget(s_nginx, 2, 1);
     leot->addWidget(t_nOn, 2, 2);
     //leot->addWidget(t_nOff, 1, 3);
     //leot->addWidget(t_nR, 1, 4);
     leot->addWidget(l_mysql, 3, 0);
+    leot->addWidget(s_mysql, 3, 1);
     leot->addWidget(t_mysql, 3, 2);
     leot->addWidget(t_dc, 5, 1);
     leot->addWidget(l_server, 4, 0);
