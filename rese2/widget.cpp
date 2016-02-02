@@ -4,7 +4,9 @@
 
 Widget::Widget(QWidget *parent) : QWidget(parent)
 {
-    l_uname = new QLabel("idle", this);
+    l_os = new QLabel("os", this);
+    l_hostname = new QLabel("hostname", this);
+    l_ket = new QLabel("tidak ada keterangan", this);
     t_wsOn = new QPushButton("WS On", this);
     t_wsOn->setCheckable(true);
     t_nOn = new QPushButton("nginx On", this);
@@ -33,6 +35,7 @@ Widget::Widget(QWidget *parent) : QWidget(parent)
     kastem = new QLineEdit(this);
     eksek = new QPushButton("Eksekusi", this);
 
+    //connect(l_uname, SIGNAL(clicked()), this, SLOT(dipencet()));
     connect(t_wsOn, SIGNAL(clicked(bool)), this, SLOT(wsOn(bool)));
     connect(t_nOn, SIGNAL(clicked(bool)), this, SLOT(nginxOn(bool)));
     connect(t_mysql, SIGNAL(clicked(bool)), this, SLOT(mysqlOn(bool)));
@@ -48,7 +51,8 @@ Widget::Widget(QWidget *parent) : QWidget(parent)
 
     QGroupBox *boks = new QGroupBox;
     QGridLayout *leot = new QGridLayout;
-    leot->addWidget(l_uname, 0, 0);
+    leot->addWidget(l_os, 0, 0);
+    leot->addWidget(l_hostname, 0, 1);
     leot->addWidget(l_apache, 1, 0);
     leot->addWidget(s_apache, 1, 1);
     leot->addWidget(t_wsOn, 1, 2);
@@ -69,6 +73,7 @@ Widget::Widget(QWidget *parent) : QWidget(parent)
 
     QGroupBox *boksa = new QGroupBox;
     QGridLayout *stata = new QGridLayout;
+    stata->addWidget(l_ket);
     boksa->setLayout(stata);
 
     mein->addWidget(boks);
@@ -80,9 +85,9 @@ void Widget::dipencet()
 {
 
     suruh pr;
-    const char *punm = "uname -a";
+    const char *punm = "uname -on";
     pr.ngakon(punm);
-    l_uname->setText(pr.otput);
+    //l_uname->setText(pr.otput);
 
 }
 
@@ -91,7 +96,7 @@ void Widget::cekWs()
     suruh pr;
     const char *pws = "ps aux | grep 'apache\\|httpd\\|nginx'";
     pr.ngakon(pws);
-    l_uname->setText(pr.otput);
+    //l_uname->setText(pr.otput);
 }
 
 void Widget::wsOn(bool cek)
@@ -182,7 +187,7 @@ void Widget::dc()
 {
     suruh pr;
     pr.diskonek();
-    l_uname->setText("Diskonek");
+    //l_uname->setText("Diskonek");
 }
 
 void Widget::kon()
@@ -192,7 +197,7 @@ void Widget::kon()
     pr.otentikasi();
     const char *punm = "uname -a";
     pr.ngakon(punm);
-    l_uname->setText(pr.otput);
+    //l_uname->setText(pr.otput);
 }
 
 void Widget::rst()
@@ -216,5 +221,5 @@ void Widget::kstm()
     QByteArray kss = kast.toUtf8();
     const char *kstt = kss.data();
     pr.ngakon(kstt);
-    l_uname->setText(pr.otput);
+    //l_uname->setText(pr.otput);
 }

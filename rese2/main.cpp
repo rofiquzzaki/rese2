@@ -12,6 +12,10 @@ int main(int argc, char *argv[])
 
     if(pr.otentikasi() == 0)
     {
+        pr.ngakon("uname -o");
+        w.l_os->setText(pr.otput);
+        pr.ngakon("uname -n");
+        w.l_hostname->setText(pr.otput);
         w.show();
     }
 

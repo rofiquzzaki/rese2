@@ -18,6 +18,8 @@ class Widget : public QWidget
 
 public:
     explicit Widget(QWidget *parent = 0);
+    QLabel *l_os;
+    QLabel *l_hostname;
 
 private slots:
     void dipencet();
@@ -46,7 +48,8 @@ private:
     QLineEdit *kastem;
     QPushButton *eksek;
     QString kstom() const;
-    QLabel *l_uname;
+
+    QLabel *l_ket;
     QLabel *l_apache;
     QLabel *l_nginx;
     QLabel *l_mysql;

@@ -186,8 +186,6 @@ int suruh::otentikasi()
             break;
         case 8:
             return 0;
-            //pesen.setText("Alhamdulillah");
-            //pesen.exec();
             break;
         case 7:
             pesen.setText("Server tidak terjangkau");
