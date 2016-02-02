@@ -18,6 +18,10 @@ int main(int argc, char *argv[])
         w.l_hostname->setText(pr.otput);
         w.show();
     }
+    else
+    {
+        return 0;
+    }
 
     return a.exec();
 }
