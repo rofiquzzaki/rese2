@@ -35,6 +35,7 @@ Widget::Widget(QWidget *parent) : QWidget(parent)
 
     connect(t_wsOn, SIGNAL(clicked(bool)), this, SLOT(wsOn(bool)));
     connect(t_nOn, SIGNAL(clicked(bool)), this, SLOT(nginxOn(bool)));
+    connect(t_mysql, SIGNAL(clicked(bool)), this, SLOT(mysqlOn(bool)));
     connect(t_dc, SIGNAL(clicked()), this, SLOT(dc()));
     connect(t_rst, SIGNAL(clicked()), this, SLOT(rst()));
     connect(t_metu, SIGNAL(clicked()), this, SLOT(dc()));
@@ -97,23 +98,27 @@ void Widget::wsOn(bool cek)
 {
     if (cek)
     {
-        t_wsOn->setText("On");
+        t_wsOn->setText("Matiin");
         suruh pr;
         const char *pwsn = "service httpd start";
         const char *pwsg = "systemctl start httpd";
         pr.ngakon(pwsn);
         pr.ngakon(pwsg);
-        l_uname->setText(pr.otput);
+        s_apache->setText("Berjalan");
+        s_apache->setStyleSheet("QLabel { background-color : #00ff00; color : black; }");
+        //l_uname->setText(pr.otput);
     }
     else
     {
-        t_wsOn->setText("Off");
+        t_wsOn->setText("Nyalain");
         suruh px;
         const char *pxws = "service httpd stop";
         const char *psds = "systemctl stop httpd";
         px.ngakon(pxws);
         px.ngakon(psds);
-        l_uname->setText(px.otput);
+        s_apache->setText("Berhenti");
+        s_apache->setStyleSheet("QLabel { background-color : red; color : black; }");
+        //l_uname->setText(px.otput);
     }
 }
 
@@ -121,23 +126,27 @@ void Widget::nginxOn(bool cek)
 {
     if (cek)
     {
-        t_nOn->setText("On");
+        t_nOn->setText("Matiin");
         suruh pr;
         const char *pwsn = "service nginx start";
         const char *pqwe = "systemctl start nginx";
         pr.ngakon(pwsn);
         pr.ngakon(pqwe);
-        l_uname->setText(pr.otput);
+        s_nginx->setText("Berhenti");
+        s_nginx->setStyleSheet("QLabel { background-color : #00ff00; color : black; }");
+        //l_uname->setText(pr.otput);
     }
     else
     {
-        t_nOn->setText("Off");
+        t_nOn->setText("Nyalain");
         suruh px;
         const char *pxws = "service nginx stop";
         const char *pasq = "systemctl stop nginx";
         px.ngakon(pxws);
         px.ngakon(pasq);
-        l_uname->setText(px.otput);
+        s_nginx->setText("Berhenti");
+        s_nginx->setStyleSheet("QLabel { background-color : red; color : black; }");
+        //l_uname->setText(px.otput);
     }
 }
 
@@ -145,23 +154,27 @@ void Widget::mysqlOn(bool cek)
 {
     if (cek)
     {
-        t_mysql->setText("On");
+        t_mysql->setText("Matiin");
         suruh pr;
         const char *psql = "service mysqld start";
         const char *psal = "systemctl start mysqld";
         pr.ngakon(psql);
         pr.ngakon(psal);
-        l_uname->setText(pr.otput);
+        s_mysql->setText("Berhenti");
+        s_mysql->setStyleSheet("QLabel { background-color : #00ff00; color : black; }");
+        //l_uname->setText(pr.otput);
     }
     else
     {
-        t_mysql->setText("Off");
+        t_mysql->setText("Nyalain");
         suruh px;
         const char *psss = "service mysqld stop";
         const char *psas = "systemctl stop mysqld";
         px.ngakon(psss);
         px.ngakon(psas);
-        l_uname->setText(px.otput);
+        s_mysql->setText("Berhenti");
+        s_mysql->setStyleSheet("QLabel { background-color : red; color : black; }");
+        //l_uname->setText(px.otput);
     }
 }
 
